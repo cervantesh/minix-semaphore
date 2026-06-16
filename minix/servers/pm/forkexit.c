@@ -299,6 +299,7 @@ exit_proc(
 
   /* If the exited process has a timer pending, kill it. */
   if (rmp->mp_flags & ALARM_ON) set_alarm(rmp, (clock_t) 0);
+  sem_cleanup_proc(rmp);
 
   /* Do accounting: fetch usage times and save with dead child process.
    * POSIX forbids accumulation at parent until child has been waited for.

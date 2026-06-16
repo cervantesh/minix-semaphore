@@ -741,8 +741,8 @@ unpause(
   if (rmp->mp_flags & DELAY_CALL)
 	return FALSE;
 
-  /* Check to see if process is hanging on a WAIT or SIGSUSPEND call. */
-  if (rmp->mp_flags & (WAITING | SIGSUSPENDED)) {
+  /* Check to see if process is hanging on a PM-suspended call. */
+  if (rmp->mp_flags & (WAITING | SIGSUSPENDED | SEMAPHORE_BLOCKED)) {
 	/* Stop the process from running. Do not interrupt the actual call yet.
 	 * sig_send() will interrupt the call and resume the process afterward.
 	 * No delay calls: we know for a fact that the process called us.
@@ -829,10 +829,13 @@ sig_send(
   }
 
   /* Was the process suspended in PM? Then interrupt the blocking call. */
-  if (rmp->mp_flags & (WAITING | SIGSUSPENDED)) {
-	rmp->mp_flags &= ~(WAITING | SIGSUSPENDED);
-
-	reply(slot, EINTR);
+  if (rmp->mp_flags & (WAITING | SIGSUSPENDED | SEMAPHORE_BLOCKED)) {
+	if (rmp->mp_flags & SEMAPHORE_BLOCKED)
+		sem_cancel_proc(rmp);
+	else {
+		rmp->mp_flags &= ~(WAITING | SIGSUSPENDED);
+		reply(slot, EINTR);
+	}
 
 	/* The process must just have been stopped by unpause(), which means
 	 * that the UNPAUSE flag is not set.

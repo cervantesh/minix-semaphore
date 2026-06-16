@@ -102,5 +102,6 @@ EXTERN struct mproc {
 #define DELAY_CALL	0x20000	/* waiting for call before sending signal */
 #define TAINTED		0x40000 /* process is 'tainted' */
 #define EVENT_CALL	0x80000	/* waiting for process event subscriber */
+#define SEMAPHORE_BLOCKED 0x100000 /* waiting for a PM semaphore */
 
 #define MP_MAGIC	0xC0FFEE0

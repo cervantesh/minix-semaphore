@@ -57,6 +57,14 @@ void sched_init(void);
 int sched_start_user(endpoint_t ep, struct mproc *rmp);
 int sched_nice(struct mproc *rmp, int nice);
 
+/* sem.c */
+int do_sem_create(void);
+int do_sem_down(void);
+int do_sem_up(void);
+int do_sem_destroy(void);
+void sem_cleanup_proc(struct mproc *rmp);
+void sem_cancel_proc(struct mproc *rmp);
+
 /* profile.c */
 int do_sprofile(void);
 
