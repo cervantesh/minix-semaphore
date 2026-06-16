@@ -66,19 +66,27 @@ Expected focused result:
 Test 95 ok
 ```
 
-## Demo Automation Direction
+## Google Cloud Demo Automation Direction
 
-For a portfolio demo, the next step is a cloud runner inside a VPC:
+For a portfolio demo, the next step is a Google Cloud runner inside a VPC:
 
-1. Start a Linux runner with KVM or nested virtualization.
-2. Boot a prepared MINIX disk image with QEMU.
+1. Start a Linux Compute Engine runner with nested virtualization enabled.
+2. Boot a prepared MINIX disk image with QEMU/KVM.
 3. Apply this branch or patch to `/usr/src`.
 4. Run `make build`.
-5. Reboot the VM into the rebuilt system.
+5. Reboot the MINIX VM into the rebuilt system.
 6. Run `./run -t 95`.
-7. Publish build logs, test logs, commit SHA, and result metadata to a static status page.
+7. Upload build logs, test logs, commit SHA, and result metadata to Cloud Storage.
+8. Serve a small Cloud Run status app that shows the latest result and links to the logs.
 
 This produces a viewer-friendly demo without exposing shell access to the MINIX VM.
+
+Google Cloud references:
+
+- Compute Engine nested virtualization: https://docs.cloud.google.com/compute/docs/instances/nested-virtualization/overview
+- Enable nested virtualization: https://docs.cloud.google.com/compute/docs/instances/nested-virtualization/enabling
+- Cloud Storage static website hosting: https://docs.cloud.google.com/storage/docs/hosting-static-website
+- Cloud Run source deployments: https://docs.cloud.google.com/run/docs/deploying-source-code
 
 ## Historical Note
 
