@@ -66,6 +66,19 @@ Expected focused result:
 Test 95 ok
 ```
 
+## Local VirtualBox Demo Path
+
+The local rehearsal path uses VirtualBox before Google Cloud:
+
+1. Install MINIX in a VirtualBox VM.
+2. Add the `/root/minix-runner/apply-build-test.sh` helper to the image.
+3. Export the MINIX VDI as a raw `minix.img`.
+4. Start the local Vagrant/VirtualBox runner in `infra/local-virtualbox-runner`.
+5. Boot the exported image through QEMU inside the Linux runner.
+6. Capture `result.json`, `serial.log`, `build.log`, and `test95.log` under `.artifacts/virtualbox-runs`.
+
+This catches boot, prompt, media-device, and helper issues locally before spending time on cloud deployment.
+
 ## Google Cloud Demo Automation Direction
 
 For a portfolio demo, the next step is a Google Cloud runner inside a VPC:

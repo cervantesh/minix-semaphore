@@ -21,6 +21,14 @@ cd /usr/tests/minix-posix
 ./run -t 95
 ```
 
+## Local Preparation
+
+The image can be prepared with VirtualBox before it is uploaded to Google Cloud.
+Use `infra/local-virtualbox-runner/scripts/create-minix-vm.ps1` to create an
+install VM from a MINIX ISO, then use
+`infra/local-virtualbox-runner/scripts/export-minix-image.ps1` to convert the
+installed VDI to the raw `minix.img` consumed by the QEMU runners.
+
 ## Preferred Guest Helper
 
 The most reliable automation path is to include this helper in the image:

@@ -1,0 +1,34 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = ENV.fetch("LOCAL_RUNNER_BOX", "debian/bookworm64")
+  config.vm.hostname = "minix-virtualbox-runner"
+
+  config.vm.synced_folder "../..", "/vagrant", type: "virtualbox"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = ENV.fetch("LOCAL_RUNNER_VM_NAME", "minix-local-runner")
+    vb.cpus = Integer(ENV.fetch("LOCAL_RUNNER_CPUS", "2"))
+    vb.memory = Integer(ENV.fetch("LOCAL_RUNNER_MEMORY_MB", "4096"))
+
+    vb.customize ["modifyvm", :id, "--nested-hw-virt", ENV.fetch("LOCAL_RUNNER_NESTED", "on")]
+    vb.customize ["modifyvm", :id, "--paravirt-provider", "kvm"]
+  end
+
+  config.vm.provision "shell", privileged: true, inline: <<-'SHELL'
+    set -euo pipefail
+
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      bash \
+      ca-certificates \
+      curl \
+      expect \
+      genisoimage \
+      jq \
+      qemu-system-x86 \
+      qemu-utils \
+      tar
+
+    mkdir -p /vagrant/.artifacts/virtualbox-runs
+    echo "MINIX local VirtualBox runner is ready."
+  SHELL
+end

@@ -20,6 +20,7 @@ Automate the portfolio validation path for the MINIX PM semaphore feature on Goo
 
 ## Run Flow
 
+0. Rehearse the image and helper locally with `infra/local-virtualbox-runner`.
 1. Fetch or receive the `portfolio-pm-semaphores` patch bundle.
 2. Start the runner VM.
 3. Copy patches into the MINIX VM workspace.
