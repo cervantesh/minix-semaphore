@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export ARTIFACT_BUCKET="${artifact_bucket}"
+export RUNNER_SCRIPT_OBJECT="${runner_script}"
+export MINIX_IMAGE_URI="${minix_image_uri}"
+export PATCH_BUNDLE_URI="${patch_bundle_uri}"
+
+LOG_DIR="/var/log/minix-runner"
+BIN_DIR="/opt/minix-runner"
+mkdir -p "$LOG_DIR" "$BIN_DIR"
+
+exec > >(tee -a "$LOG_DIR/startup.log") 2>&1
+
+echo "Installing runner dependencies..."
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  bash \
+  ca-certificates \
+  curl \
+  expect \
+  genisoimage \
+  jq \
+  qemu-system-x86 \
+  qemu-utils \
+  tar
+
+echo "Checking nested virtualization..."
+grep -cw vmx /proc/cpuinfo || true
+
+echo "Downloading validation script..."
+gcloud storage cp "gs://$ARTIFACT_BUCKET/$RUNNER_SCRIPT_OBJECT" "$BIN_DIR/run-minix-validation.sh"
+chmod +x "$BIN_DIR/run-minix-validation.sh"
+
+echo "Starting validation..."
+"$BIN_DIR/run-minix-validation.sh"
