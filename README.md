@@ -1,13 +1,28 @@
 # minix-semaphore
 
-Fork of the official MINIX source tree used for the PM-backed semaphore project.
+This default branch is intentionally minimal.
 
-## Branches
+## Why master only keeps this README
 
-- `master`: upstream-based source tree for the fork.
-- `minix-semaphore`: clean feature branch with the PM semaphore implementation and packaged `test95` coverage.
-- `portfolio-minix-semaphore`: validation evidence plus the local VirtualBox runner used to prove the concept end to end.
+The full MINIX source mirror is large enough that the semaphore work disappears
+in the noise. For portfolio review, the first thing a visitor should see is the
+project itself, the clean implementation diff, and the local validation proof.
 
-## Review
+So the default branch is now just the landing document. The source and evidence
+still exist, but they live on dedicated branches where their purpose is clearer.
 
-- Feature PR: [#1 Add PM-backed MINIX semaphores](https://github.com/cervantesh/minix-semaphore/pull/1)
+## Where the actual material lives
+
+- GitHub Pages overview: https://cervantesh.github.io/minix-semaphore/
+- minix-source-base: frozen upstream-based snapshot kept only as the review
+  base for the semaphore diff
+- minix-semaphore: clean PM-backed semaphore implementation
+- portfolio-minix-semaphore: local validation evidence and the VirtualBox
+  runner used to produce it
+
+## Review and evidence
+
+- Feature PR: https://github.com/cervantesh/minix-semaphore/pull/1
+- Validation README: https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/README.md
+- Structured result: https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.result.json
+- Focused test log (Test 95 ok): https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.test95.log
