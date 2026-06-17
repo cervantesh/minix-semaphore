@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MINIX Semaphore Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">MINIX 3 kernel project</div>
+      <h1>PM-backed semaphores, proven with a real local rebuild.</h1>
+      <p>
+        This repo now opens on the project itself instead of a full source mirror.
+        The implementation, review diff, and local runtime proof are separated so each one is easy to inspect.
+      </p>
+      <nav class="actions">
+        <a href="https://github.com/cervantesh/minix-semaphore/tree/minix-semaphore">Feature branch</a>
+        <a href="https://github.com/cervantesh/minix-semaphore/pull/1">Feature PR</a>
+        <a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore">Validation branch</a>
+      </nav>
+    </div>
+    <div class="hero-media">
+      <img src="hero.png" alt="Terminal-style proof of Test 95 passing in MINIX">
+    </div>
+  </header>
+
+  <main>
+    <section class="band intro">
+      <div>
+        <h2>What ships in the code branch</h2>
+        <p>
+          The clean implementation lives on <code>minix-semaphore</code>: PM call numbers, message ABI,
+          public header, libc wrappers, Process Manager semaphore state, delayed-reply blocking,
+          signal interruption handling, and packaged <code>test95</code> coverage.
+        </p>
+      </div>
+      <div>
+        <h2>What proves it</h2>
+        <p>
+          The portfolio proof lives on <code>portfolio-minix-semaphore</code>: a committed local rerun,
+          structured result metadata, the focused guest log with <code>Test 95 ok</code>, and the local VirtualBox runner.
+        </p>
+      </div>
+    </section>
+
+    <section class="band proof">
+      <div class="proof-copy">
+        <h2>Why the default branch is minimal</h2>
+        <p>
+          Reviewers should land on the concept first. Leaving the default branch as a full upstream MINIX mirror made the semaphore work hard to find and easy to miss.
+          So <code>master</code> is now a portfolio landing document, while the source baseline is frozen on <code>minix-source-base</code> to keep the PR diff honest.
+        </p>
+      </div>
+      <ul class="proof-list">
+        <li><span>Base snapshot</span><strong>minix-source-base</strong></li>
+        <li><span>Implementation</span><strong>minix-semaphore</strong></li>
+        <li><span>Validation</span><strong>portfolio-minix-semaphore</strong></li>
+        <li><span>Runtime proof</span><strong>Test 95 ok</strong></li>
+      </ul>
+    </section>
+
+    <section class="band evidence">
+      <h2>Evidence</h2>
+      <div class="link-grid">
+        <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/README.md">Validation README</a>
+        <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.result.json">Result JSON</a>
+        <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.test95.log">Focused test log</a>
+        <a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore/infra/local-virtualbox-runner">Local runner</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
