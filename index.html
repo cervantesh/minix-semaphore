@@ -9,11 +9,20 @@
 <body>
   <main class="paper">
     <header class="paper-header">
+      <div class="edition-line" aria-label="edition metadata">
+        <span>Repository Edition</span>
+        <span>June 17, 2026</span>
+      </div>
+      <div class="masthead-note">Operating Systems Implementation Review</div>
       <h1>PM-Backed Counting Semaphores PoC for MINIX 3</h1>
       <p class="paper-subtitle">
         Repository-structured presentation of a MINIX-specific semaphore PoC
         and its committed local validation evidence.
       </p>
+      <div class="byline-row">
+        <p class="byline">Editorial summary of implementation, validation, and review entry points.</p>
+        <p class="publication-note">GitHub Pages publication for portfolio review.</p>
+      </div>
       <dl class="header-meta">
         <div>
           <dt>Review base</dt>
@@ -35,8 +44,11 @@
     </header>
 
     <section class="paper-section">
-      <h2>Abstract</h2>
-      <p>
+      <div class="section-heading">
+        <span class="section-number">01</span>
+        <h2>Abstract</h2>
+      </div>
+      <p class="lede">
         This project revisits an older MINIX semaphore experiment and turns it into an end-to-end
         Process Manager feature with a public header, libc wrappers, server-side state, delayed-reply
         blocking, interruption handling, and regression coverage. The repository is intentionally split
@@ -51,7 +63,10 @@
     </section>
 
     <section class="paper-section">
-      <h2>Repository Structure</h2>
+      <div class="section-heading">
+        <span class="section-number">02</span>
+        <h2>Repository Structure</h2>
+      </div>
       <dl class="branch-list">
         <div>
           <dt><a href="https://github.com/cervantesh/minix-semaphore/tree/minix-source-base">minix-source-base</a></dt>
@@ -69,7 +84,10 @@
     </section>
 
     <section class="paper-section">
-      <h2>Implemented Scope</h2>
+      <div class="section-heading">
+        <span class="section-number">03</span>
+        <h2>Implemented Scope</h2>
+      </div>
       <ol class="plain-list">
         <li>Add Process Manager call numbers and the semaphore message ABI.</li>
         <li>Expose a MINIX-specific public API through <code>minix/semaphore.h</code> and libc wrappers.</li>
@@ -79,7 +97,10 @@
     </section>
 
     <section class="paper-section">
-      <h2>Implementation Surface</h2>
+      <div class="section-heading">
+        <span class="section-number">04</span>
+        <h2>Implementation Surface</h2>
+      </div>
       <div class="catalog-grid">
         <div>
           <h3>Interface and ABI</h3>
@@ -113,7 +134,10 @@
     </section>
 
     <section class="paper-section">
-      <h2>Validation Evidence</h2>
+      <div class="section-heading">
+        <span class="section-number">05</span>
+        <h2>Validation Evidence</h2>
+      </div>
       <p>
         The primary runtime proof is a local rebuild and guest execution path recorded in the committed
         validation branch. The result set is intentionally small: structured metadata, a focused guest log,
@@ -136,7 +160,10 @@ TEST95_OK</pre>
     </section>
 
     <section class="paper-section">
-      <h2>Primary Artifacts</h2>
+      <div class="section-heading">
+        <span class="section-number">06</span>
+        <h2>Primary Artifacts</h2>
+      </div>
       <ol class="reference-list">
         <li><a href="https://github.com/cervantesh/minix-semaphore/pull/1">Feature pull request against <code>minix-source-base</code></a></li>
         <li><a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/README.md">Validation README</a></li>
