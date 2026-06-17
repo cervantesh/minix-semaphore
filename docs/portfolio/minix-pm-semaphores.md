@@ -66,9 +66,10 @@ Expected focused result:
 Test 95 ok
 ```
 
-## Local VirtualBox Demo Path
+## Local Validation Path
 
-The local rehearsal path uses VirtualBox before Google Cloud:
+The portfolio proof point for this project is the local VirtualBox-based
+validation run:
 
 1. Install MINIX in a VirtualBox VM.
 2. Add the `/root/minix-runner/apply-build-test.sh` helper to the image.
@@ -77,29 +78,11 @@ The local rehearsal path uses VirtualBox before Google Cloud:
 5. Boot the exported image through QEMU inside the Linux runner.
 6. Capture `result.json`, `serial.log`, `build.log`, and `test95.log` under `.artifacts/virtualbox-runs`.
 
-This catches boot, prompt, media-device, and helper issues locally before spending time on cloud deployment.
-
-## Google Cloud Demo Automation Direction
-
-For a portfolio demo, the next step is a Google Cloud runner inside a VPC:
-
-1. Start a Linux Compute Engine runner with nested virtualization enabled.
-2. Boot a prepared MINIX disk image with QEMU/KVM.
-3. Apply this branch or patch to `/usr/src`.
-4. Run `make build`.
-5. Reboot the MINIX VM into the rebuilt system.
-6. Run `./run -t 95`.
-7. Upload build logs, test logs, commit SHA, and result metadata to Cloud Storage.
-8. Serve a small Cloud Run status app that shows the latest result and links to the logs.
-
-This produces a viewer-friendly demo without exposing shell access to the MINIX VM.
-
-Google Cloud references:
-
-- Compute Engine nested virtualization: https://docs.cloud.google.com/compute/docs/instances/nested-virtualization/overview
-- Enable nested virtualization: https://docs.cloud.google.com/compute/docs/instances/nested-virtualization/enabling
-- Cloud Storage static website hosting: https://docs.cloud.google.com/storage/docs/hosting-static-website
-- Cloud Run source deployments: https://docs.cloud.google.com/run/docs/deploying-source-code
+The committed evidence under
+`docs/local-validation/minix-pm-semaphores/` is the final portfolio artifact
+for this work. A cloud runner was explored earlier, but it is intentionally out
+of scope now because the local rebuild and `Test 95 ok` result already show the
+concept end to end.
 
 ## Historical Note
 

@@ -12,16 +12,16 @@ Windows host
            -> MINIX
 ```
 
-This is intentionally close to the Google Cloud runner, which also uses a Linux
-VM to boot MINIX through QEMU/KVM.
+This is the final validation path kept for the portfolio version of the
+project.
 
 ## Host Requirements
 
 - VirtualBox
 - Vagrant
 - PowerShell 7 or Windows PowerShell
-- A prepared MINIX disk image that satisfies
-  `../gcp-minix-runner/MINIX_IMAGE_CONTRACT.md`
+- A prepared MINIX disk image with `/usr/src`, `/usr/tests/minix-posix`, and a
+  working `/root/minix-runner/apply-build-test.sh` helper inside the guest
 
 ## Prepare A MINIX VM In VirtualBox
 
@@ -105,3 +105,5 @@ Expected outputs:
   slower, but useful for boot and helper debugging.
 - Do not mark the portfolio project as fully validated until `result.json`
   shows `status: "passed"` with build and test exit codes equal to `0`.
+- No Google Cloud or Terraform deployment is required for this repository
+  anymore; the local validation artifacts are the final demonstration path.

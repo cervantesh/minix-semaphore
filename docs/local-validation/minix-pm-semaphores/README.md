@@ -121,8 +121,8 @@ Automation learnings:
   - a structured `result.json`
   - the focused runtime log
   - the validation patch
-- the next useful automation step is to publish those artifacts from one stable
-  workflow instead of keeping larger local runner outputs outside the repo
+- this repository no longer needs a cloud or Terraform deployment path; the
+  local committed evidence is the final proof set for the portfolio
 
 ## Outcome
 
