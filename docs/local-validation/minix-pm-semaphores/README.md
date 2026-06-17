@@ -62,9 +62,9 @@ Measured timing:
 
 ## Committed Evidence
 
-- `20260617T024946Z-from-scratch.result.json`
-- `20260617T024946Z-from-scratch.test95.log`
-- `0001-build-fix-validation-path-for-semaphore-portfolio.patch`
+- [structured result](./20260617T024946Z-from-scratch.result.json)
+- [focused runtime log](./20260617T024946Z-from-scratch.test95.log)
+- [validation patch](./0001-build-fix-validation-path-for-semaphore-portfolio.patch)
 
 The evidence files show:
 
@@ -72,6 +72,12 @@ The evidence files show:
 - zero exit codes for clone, patch, tools, distribution, packaging, image
   build, and focused test
 - the exact `Test 95 ok` output from the rebuilt MINIX image
+
+Direct proof points inside the committed evidence:
+
+- `status: "passed"` in [structured result](./20260617T024946Z-from-scratch.result.json)
+- `testExitCode: 0` in [structured result](./20260617T024946Z-from-scratch.result.json)
+- `Test 95 ok` in [focused runtime log](./20260617T024946Z-from-scratch.test95.log)
 
 ## Consolidated Learnings
 
