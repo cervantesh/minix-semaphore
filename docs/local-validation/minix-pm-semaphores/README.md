@@ -4,7 +4,7 @@ This directory captures a local, reproducible validation run for the
 `portfolio-pm-semaphores` branch on a Windows host using VirtualBox, a Debian
 runner VM, and QEMU.
 
-## Feature Scope
+## Summary
 
 The `portfolio-pm-semaphores` branch adds a MINIX-specific counting semaphore
 implementation backed by the Process Manager.
@@ -22,7 +22,7 @@ At a high level, the branch does the following:
 - adds `test95` to exercise lifecycle, blocking, wake-up, destroy, and signal
   interruption behavior
 
-## Validated Run
+## Validated Local Run
 
 - run id: `20260617T024946Z-from-scratch`
 - branch: `portfolio-pm-semaphores`
@@ -40,9 +40,7 @@ Test 95 ok
 TEST95_OK
 ```
 
-## What The Local Validation Actually Did
-
-The passing local run followed this sequence:
+What this local run did:
 
 1. create a raw `git bundle` for the semaphore branch on the Windows host
 2. boot the Debian runner VM under VirtualBox
@@ -56,7 +54,7 @@ The passing local run followed this sequence:
 9. boot the rebuilt image under QEMU in the Linux runner
 10. log in on the serial console and run `./run -t 95`
 
-Measured timing from the validated run:
+Measured timing:
 
 - `build.sh tools`: `2026-06-17 02:50:18 UTC` -> `03:05:05 UTC`
 - `build.sh distribution`: `2026-06-17 03:05:05 UTC` -> `03:34:33 UTC`
@@ -75,35 +73,50 @@ The evidence files show:
   build, and focused test
 - the exact `Test 95 ok` output from the rebuilt MINIX image
 
-## What Had To Be Added In This Rerun
+## Consolidated Learnings
 
-Two pipeline fixes were required in the local validation wrapper:
+Feature-level learnings:
 
-1. create `releasedir/i386/binary/sets` before running `maketars`
-2. create the validated bundle from the branch ref
-   `refs/heads/portfolio-pm-semaphores` instead of passing only the commit SHA
+- the PM delayed-reply model is the right fit for blocking semaphore waits in
+  this project
+- the semaphore implementation needed coverage at the libc, PM, and regression
+  test levels to count as end-to-end work
+- `test95` is the focused proof point for create/down/up/destroy plus
+  interruption behavior
 
-These were validation-pipeline fixes, not new semaphore feature changes.
+Build and packaging learnings:
 
-## Local-Only Artifacts
+- the correct host strategy is the official Linux-side `build.sh` path, not a
+  guest-native MINIX rebuild
+- the semaphore branch cannot be materialized directly on this Windows host, so
+  the portable handoff is a raw `git bundle` cloned inside Linux
+- the validated host-compatibility and packaging fixes are:
+  - `external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h`
+  - `tools/binutils/Makefile`
+  - `minix/include/minix/Makefile`
+  - `distrib/sets/lists/minix-comp/mi`
+  - `distrib/sets/lists/minix-tests/mi`
+- the packaging wrapper also needed two local fixes:
+  - create `releasedir/i386/binary/sets` before `maketars`
+  - create the validated bundle from `refs/heads/portfolio-pm-semaphores`
+    instead of a bare commit SHA
 
-The full runner workspace also has larger local-only artifacts such as:
+Execution learnings:
 
-- the validated bundle
-- the serial log export
-- full build logs
-- the local VirtualBox runner scripts
+- on this workstation, the expensive step is rebuilding the LLVM-enabled host
+  toolchain, not booting the final MINIX image
+- the validated runner size for this path was `6 vCPU / 8192 MB`
+- once the host build completed, packaging, image build, and the focused guest
+  test were straightforward
 
-Those files are intentionally not committed here because they are either large
-binary artifacts or workstation-specific execution scaffolding.
+Automation learnings:
 
-## Re-run Path
-
-The validated re-run path uses the local VirtualBox runner scripts that rebuild
-the raw branch bundle, re-run the Linux host build, boot the rebuilt image, and
-execute `./run -t 95`.
-
-The exact workstation-specific script path is intentionally not committed here.
+- the right artifact set for a portfolio proof is:
+  - a structured `result.json`
+  - the focused runtime log
+  - the validation patch
+- the next useful automation step is to publish those artifacts from one stable
+  workflow instead of keeping larger local runner outputs outside the repo
 
 ## Outcome
 
