@@ -1,0 +1,33 @@
+{
+  "runId": "20260617T024946Z-from-scratch",
+  "branch": "portfolio-pm-semaphores",
+  "sourceBundle": "/vagrant/.artifacts/portfolio-pm-semaphores.bundle",
+  "status": "passed",
+  "startedAt": "2026-06-17T02:49:56Z",
+  "finishedAt": "2026-06-17T03:36:32Z",
+  "sourceCommit": "9d19e472d3d2703146925b780a85ce1785172895",
+  "validatedCommit": "54d786540190e0f1da71fd648636d83d9f18a23a",
+  "cloneExitCode": 0,
+  "patchExitCode": 0,
+  "toolsExitCode": 0,
+  "distributionExitCode": 0,
+  "maketarsExitCode": 0,
+  "hdimageExitCode": 0,
+  "buildExitCode": 0,
+  "testExitCode": 0,
+  "artifacts": {
+    "srcRoot": "/home/vagrant/portfolio-reruns/20260617T024946Z-from-scratch/src",
+    "objRoot": "/home/vagrant/portfolio-reruns/20260617T024946Z-from-scratch/obj",
+    "imagePath": "/home/vagrant/portfolio-reruns/20260617T024946Z-from-scratch/obj/minix_x86_pm.img",
+    "serialLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/portfolio-test95-serial.log",
+    "validatedBundle": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/portfolio-pm-semaphores-validated.bundle",
+    "validatedPatch": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/0001-build-fix-validation-path-for-semaphore-portfolio.patch",
+    "cloneLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/01-clone.log",
+    "patchLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/02-patch.log",
+    "toolsLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/03-tools.log",
+    "distributionLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/04-distribution.log",
+    "maketarsLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/05-maketars.log",
+    "hdimageLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/06-hdimage.log",
+    "testLog": "/vagrant/.artifacts/portfolio-reruns/20260617T024946Z-from-scratch/07-test95.log"
+  }
+}

@@ -1,0 +1,95 @@
+From 54d786540190e0f1da71fd648636d83d9f18a23a Mon Sep 17 00:00:00 2001
+From: Local Validation <local-validation@example.com>
+Date: Wed, 17 Jun 2026 02:50:18 +0000
+Subject: [PATCH] build: fix validation path for semaphore portfolio
+
+---
+ distrib/sets/lists/minix-comp/mi                       | 1 +
+ distrib/sets/lists/minix-tests/mi                      | 1 +
+ external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h | 2 +-
+ minix/include/minix/Makefile                           | 2 +-
+ tools/binutils/Makefile                                | 6 +++---
+ 5 files changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/distrib/sets/lists/minix-comp/mi b/distrib/sets/lists/minix-comp/mi
+index e0cc28825..a1a088996 100644
+--- a/distrib/sets/lists/minix-comp/mi
++++ b/distrib/sets/lists/minix-comp/mi
+@@ -1238,6 +1238,7 @@
+ ./usr/include/minix/rs.h                                minix-comp
+ ./usr/include/minix/safecopies.h                        minix-comp
+ ./usr/include/minix/sched.h                             minix-comp
++./usr/include/minix/semaphore.h                          minix-comp
+ ./usr/include/minix/sef.h                               minix-comp
+ ./usr/include/minix/sffs.h                              minix-comp
+ ./usr/include/minix/sockdriver.h                        minix-comp
+diff --git a/distrib/sets/lists/minix-tests/mi b/distrib/sets/lists/minix-tests/mi
+index d3ddc45b7..16d16ea94 100644
+--- a/distrib/sets/lists/minix-tests/mi
++++ b/distrib/sets/lists/minix-tests/mi
+@@ -198,6 +198,7 @@
+ ./usr/tests/minix-posix/test92                          minix-tests
+ ./usr/tests/minix-posix/test93                          minix-tests
+ ./usr/tests/minix-posix/test94                          minix-tests
++./usr/tests/minix-posix/test95                          minix-tests
+ ./usr/tests/minix-posix/testinterp                      minix-tests
+ ./usr/tests/minix-posix/testisofs                       minix-tests
+ ./usr/tests/minix-posix/testkyua                        minix-tests
+diff --git a/external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h b/external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h
+index f2ea405f1..f9a1a6240 100644
+--- a/external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h
++++ b/external/bsd/llvm/dist/llvm/include/llvm/IR/ValueMap.h
+@@ -101,7 +101,7 @@ public:
+ 
+   ~ValueMap() {}
+ 
+-  bool hasMD() const { return MDMap; }
++  bool hasMD() const { return static_cast<bool>(MDMap); }
+   MDMapT &MD() {
+     if (!MDMap)
+       MDMap.reset(new MDMapT);
+diff --git a/minix/include/minix/Makefile b/minix/include/minix/Makefile
+index 2ed8564df..f13440078 100644
+--- a/minix/include/minix/Makefile
++++ b/minix/include/minix/Makefile
+@@ -16,7 +16,7 @@ INCS+=	acpi.h audio_fw.h bitmap.h \
+ 	keymap.h log.h mmio.h mthread.h minlib.h \
+ 	netdriver.h optset.h padconf.h partition.h portio.h \
+ 	priv.h procfs.h profile.h \
+-	rmib.h rs.h safecopies.h sched.h sef.h sffs.h \
++	rmib.h rs.h safecopies.h sched.h semaphore.h sef.h sffs.h \
+ 	sockdriver.h sockevent.h sound.h spin.h \
+ 	sys_config.h sysctl.h sysinfo.h \
+ 	syslib.h sysutil.h timers.h type.h \
+diff --git a/tools/binutils/Makefile b/tools/binutils/Makefile
+index c0b4fa77a..87be78067 100644
+--- a/tools/binutils/Makefile
++++ b/tools/binutils/Makefile
+@@ -41,8 +41,6 @@ INSTALL_TARGET+=install-gprof
+ .endif
+ 
+ .if defined(__MINIX) && ${HAVE_GOLD:Uyes} != "no"
+-ALL_TARGET+=	all-gold
+-INSTALL_TARGET+=install-gold
+ 
+ CONFIGURE_ARGS+=	\
+ 	--enable-lto \
+@@ -51,13 +49,15 @@ CONFIGURE_ARGS+=	\
+ #      linker. Problem is, when Gold is not seen, USE_BITCODE is forced to
+ #      "no".
+ .if ${MKBITCODE:Uno} == "yes"
++ALL_TARGET+=	all-gold
++INSTALL_TARGET+=install-gold
+ CONFIGURE_ARGS+= \
+ 	--enable-ld=yes \
+ 	--enable-gold=default
+ .else
+ CONFIGURE_ARGS+= \
+ 	--enable-ld=default \
+-	--enable-gold=yes
++	--enable-gold=no
+ .endif # ${MKBITCODE:Uno} == "yes"
+ .endif # defined(__MINIX)
+ .include "${.CURDIR}/../Makefile.gnuhost"
+-- 
+2.39.5
