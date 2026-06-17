@@ -143,20 +143,64 @@
         validation branch. The result set is intentionally small: structured metadata, a focused guest log,
         and the local runner used to reproduce the path.
       </p>
-      <figure class="evidence-figure">
-        <img src="hero.png" alt="Focused runtime validation after local rebuild">
-        <figcaption>Figure 1. Focused guest validation after rebuild under the local VirtualBox and QEMU path.</figcaption>
-      </figure>
-      <dl class="run-list">
-        <div><dt>Run ID</dt><dd><code>20260617T024946Z-from-scratch</code></dd></div>
-        <div><dt>Runner size</dt><dd><code>6 vCPU / 8192 MB</code></dd></div>
-        <div><dt>Build path</dt><dd>Linux-side MINIX build, image rebuild, guest boot, and focused test execution.</dd></div>
-        <div><dt>Outcome</dt><dd><code>status: passed</code></dd></div>
-      </dl>
-      <pre class="result-block">minix# cd /usr/tests/minix-posix && ./run -t 95
+      <figure class="validation-sheet" aria-label="Focused runtime validation after local rebuild">
+        <div class="validation-sheet-inner">
+          <div class="validation-sheet-head">
+            <p class="validation-figure-label">Figure 1</p>
+            <div class="validation-rule" aria-hidden="true"></div>
+            <h3 class="validation-title">Focused runtime validation after local rebuild</h3>
+            <p class="validation-subtitle">
+              MINIX 3 Process Manager semaphore project, executed through the local VirtualBox and QEMU
+              validation path.
+            </p>
+          </div>
+          <div class="validation-layout">
+            <div class="validation-main">
+              <pre class="validation-terminal">minix# cd /usr/tests/minix-posix && ./run -t 95
 
-Test 95 ok
-TEST95_OK</pre>
+<span class="validation-success">Test 95 ok</span>
+TEST95_OK
+
+guest boot after rebuild completed successfully
+result recorded in committed validation evidence</pre>
+              <div class="validation-note">
+                <p class="validation-note-label">Repository presentation note</p>
+                <p>
+                  The default branch was reduced to a landing document so the implementation and
+                  validation evidence can be reviewed directly, without the full upstream mirror
+                  obscuring the contribution.
+                </p>
+              </div>
+            </div>
+            <dl class="validation-meta">
+              <div>
+                <dt>Run ID</dt>
+                <dd>20260617T024946Z-from-scratch</dd>
+              </div>
+              <div>
+                <dt>Branch</dt>
+                <dd>portfolio-minix-semaphore</dd>
+              </div>
+              <div>
+                <dt>Feature branch</dt>
+                <dd>minix-semaphore</dd>
+              </div>
+              <div>
+                <dt>Base branch</dt>
+                <dd>minix-source-base</dd>
+              </div>
+              <div>
+                <dt>Runner size</dt>
+                <dd>6 vCPU / 8192 MB</dd>
+              </div>
+              <div>
+                <dt>Outcome</dt>
+                <dd>passed</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </figure>
     </section>
 
     <section class="paper-section">
