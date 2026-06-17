@@ -1238,6 +1238,7 @@
 ./usr/include/minix/rs.h                                minix-comp
 ./usr/include/minix/safecopies.h                        minix-comp
 ./usr/include/minix/sched.h                             minix-comp
+./usr/include/minix/semaphore.h                          minix-comp
 ./usr/include/minix/sef.h                               minix-comp
 ./usr/include/minix/sffs.h                              minix-comp
 ./usr/include/minix/sockdriver.h                        minix-comp
