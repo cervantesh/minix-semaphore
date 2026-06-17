@@ -6,7 +6,7 @@ Fork of the official MINIX source tree used for the PM-backed semaphore project.
 
 - `master`: upstream-based source tree for the fork.
 - `minix-semaphore`: clean feature branch with the PM semaphore implementation and packaged `test95` coverage.
-- `portfolio-minix-semaphore`: validation evidence plus local and Google Cloud runner scaffolding for the portfolio demo.
+- `portfolio-minix-semaphore`: validation evidence plus the local VirtualBox runner used to prove the concept end to end.
 
 ## Review
 
