@@ -7,110 +7,84 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="masthead">
-    <div class="masthead-grid">
-      <div class="masthead-copy">
-        <div class="eyebrow">MINIX 3 / Operating Systems / Process Manager</div>
-        <h1>PM-Backed Counting Semaphores for MINIX 3</h1>
-        <p class="lead">
-          A branch-structured academic presentation of a MINIX-specific semaphore implementation,
-          with a clean review branch for the code and a separate branch for local rebuild evidence.
-        </p>
-        <dl class="meta-list">
-          <div>
-            <dt>Project focus</dt>
-            <dd>Process Manager call path, user-space server design, runtime validation</dd>
-          </div>
-          <div>
-            <dt>Primary proof</dt>
-            <dd>Local rebuild, boot, and focused guest execution ending in <code>Test 95 ok</code></dd>
-          </div>
-          <div>
-            <dt>Review layout</dt>
-            <dd><code>minix-source-base</code> -> <code>minix-semaphore</code> -> <code>portfolio-minix-semaphore</code></dd>
-          </div>
-        </dl>
-        <nav class="actions">
-          <a href="https://github.com/cervantesh/minix-semaphore/pull/1">Review the feature diff</a>
-          <a href="https://github.com/cervantesh/minix-semaphore/tree/minix-semaphore">Read the implementation branch</a>
-          <a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore">Read the validation branch</a>
-        </nav>
-      </div>
-      <figure class="masthead-figure">
-        <img src="hero.png" alt="Figure showing the focused runtime validation ending in Test 95 ok">
-        <figcaption>Figure 1. Focused guest validation after rebuild under the local VirtualBox and QEMU path.</figcaption>
-      </figure>
-    </div>
-  </header>
-
-  <main>
-    <section class="section section-intro">
-      <div class="section-heading">
-        <p class="section-label">Abstract</p>
-        <h2>Why the repository is split this way</h2>
-      </div>
-      <div class="two-column">
+  <main class="paper">
+    <header class="paper-header">
+      <p class="paper-kicker">MINIX 3 / Process Manager / Operating Systems Project</p>
+      <h1>PM-Backed Counting Semaphores for MINIX 3</h1>
+      <p class="paper-subtitle">
+        Repository-structured presentation of a MINIX-specific semaphore implementation
+        and its committed local validation evidence.
+      </p>
+      <dl class="header-meta">
         <div>
-          <p>
-            The original upstream MINIX tree is too large to function as a readable portfolio surface.
-            The semaphore work disappears inside that mirror unless the project is re-framed around the
-            feature itself.
-          </p>
+          <dt>Review base</dt>
+          <dd><a href="https://github.com/cervantesh/minix-semaphore/tree/minix-source-base">minix-source-base</a></dd>
         </div>
         <div>
-          <p>
-            For that reason, the default branch is now only a landing document, the frozen upstream-based
-            comparison point lives on <code>minix-source-base</code>, the implementation lives on
-            <code>minix-semaphore</code>, and the committed rerun evidence lives on
-            <code>portfolio-minix-semaphore</code>.
-          </p>
+          <dt>Implementation branch</dt>
+          <dd><a href="https://github.com/cervantesh/minix-semaphore/tree/minix-semaphore">minix-semaphore</a></dd>
         </div>
-      </div>
+        <div>
+          <dt>Validation branch</dt>
+          <dd><a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore">portfolio-minix-semaphore</a></dd>
+        </div>
+        <div>
+          <dt>Feature review</dt>
+          <dd><a href="https://github.com/cervantesh/minix-semaphore/pull/1">Pull Request #1</a></dd>
+        </div>
+      </dl>
+    </header>
+
+    <section class="paper-section">
+      <h2>Abstract</h2>
+      <p>
+        This project revisits an older MINIX semaphore experiment and turns it into an end-to-end
+        Process Manager feature with a public header, libc wrappers, server-side state, delayed-reply
+        blocking, interruption handling, and regression coverage. The repository is intentionally split
+        so the implementation can be reviewed independently from the validation evidence.
+      </p>
+      <p>
+        The default branch no longer mirrors the full upstream MINIX source tree because that structure
+        obscures the actual contribution. Instead, the upstream-based comparison point is frozen on
+        <code>minix-source-base</code>, the implementation is isolated on <code>minix-semaphore</code>,
+        and the local rerun evidence is preserved on <code>portfolio-minix-semaphore</code>.
+      </p>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <p class="section-label">Contributions</p>
-        <h2>Implemented scope</h2>
-      </div>
-      <ol class="contribution-list">
-        <li>Add Process Manager call numbers and the semaphore message ABI.</li>
-        <li>Expose a small public API through <code>minix/semaphore.h</code> and libc wrappers.</li>
-        <li>Implement counting semaphore state, delayed replies, FIFO wake-up, and interruption handling inside PM.</li>
-        <li>Package the header and add <code>test95</code> to exercise lifecycle, wake-up order, destroy behavior, and signal interruption.</li>
-      </ol>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <p class="section-label">Branch map</p>
-        <h2>Purpose of each branch</h2>
-      </div>
-      <dl class="branch-table">
+    <section class="paper-section">
+      <h2>Repository Structure</h2>
+      <dl class="branch-list">
         <div>
           <dt><a href="https://github.com/cervantesh/minix-semaphore/tree/minix-source-base">minix-source-base</a></dt>
-          <dd>Frozen upstream-based base branch kept to preserve a focused diff for the feature review.</dd>
+          <dd>Frozen upstream-based base branch preserved only to keep the feature diff narrow and technically reviewable.</dd>
         </div>
         <div>
           <dt><a href="https://github.com/cervantesh/minix-semaphore/tree/minix-semaphore">minix-semaphore</a></dt>
-          <dd>Clean implementation branch. Use this branch to inspect the code, packaging updates, and regression coverage without portfolio scaffolding.</dd>
+          <dd>Clean implementation branch used to inspect the code, packaging updates, and regression tests without portfolio-only material.</dd>
         </div>
         <div>
           <dt><a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore">portfolio-minix-semaphore</a></dt>
-          <dd>Validation branch. Use this branch to inspect the local rerun evidence and the VirtualBox-based runner used to produce it.</dd>
+          <dd>Validation branch used to inspect the local rerun evidence and the VirtualBox-based runner used to produce it.</dd>
         </div>
       </dl>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <p class="section-label">Implementation surface</p>
-        <h2>Where the feature lives</h2>
-      </div>
-      <div class="three-column">
+    <section class="paper-section">
+      <h2>Implemented Scope</h2>
+      <ol class="plain-list">
+        <li>Add Process Manager call numbers and the semaphore message ABI.</li>
+        <li>Expose a MINIX-specific public API through <code>minix/semaphore.h</code> and libc wrappers.</li>
+        <li>Implement counting semaphore state, FIFO wake-up, delayed replies, and signal interruption handling inside PM.</li>
+        <li>Package the public header and add <code>test95</code> to exercise lifecycle, wake-up order, destroy behavior, and interruption handling.</li>
+      </ol>
+    </section>
+
+    <section class="paper-section">
+      <h2>Implementation Surface</h2>
+      <div class="catalog-grid">
         <div>
           <h3>Interface and ABI</h3>
-          <ul>
+          <ul class="path-list">
             <li><code>minix/include/minix/callnr.h</code></li>
             <li><code>minix/include/minix/ipc.h</code></li>
             <li><code>minix/include/minix/semaphore.h</code></li>
@@ -119,7 +93,7 @@
         </div>
         <div>
           <h3>Process Manager</h3>
-          <ul>
+          <ul class="path-list">
             <li><code>minix/servers/pm/sem.c</code></li>
             <li><code>minix/servers/pm/signal.c</code></li>
             <li><code>minix/servers/pm/table.c</code></li>
@@ -129,7 +103,7 @@
         </div>
         <div>
           <h3>Packaging and tests</h3>
-          <ul>
+          <ul class="path-list">
             <li><code>minix/include/minix/Makefile</code></li>
             <li><code>distrib/sets/lists/minix-comp/mi</code></li>
             <li><code>distrib/sets/lists/minix-tests/mi</code></li>
@@ -139,56 +113,38 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <p class="section-label">Validation</p>
-        <h2>Committed runtime evidence</h2>
-      </div>
-      <div class="two-column validation-grid">
-        <div>
-          <dl class="run-table">
-            <div><dt>Run ID</dt><dd><code>20260617T024946Z-from-scratch</code></dd></div>
-            <div><dt>Runner size</dt><dd><code>6 vCPU / 8192 MB</code></dd></div>
-            <div><dt>Build path</dt><dd>Linux-side MINIX build, image rebuild, guest boot, focused test execution</dd></div>
-            <div><dt>Outcome</dt><dd><code>status: passed</code></dd></div>
-          </dl>
-          <pre class="result-snippet">minix# cd /usr/tests/minix-posix && ./run -t 95
+    <section class="paper-section">
+      <h2>Validation Evidence</h2>
+      <p>
+        The primary runtime proof is a local rebuild and guest execution path recorded in the committed
+        validation branch. The result set is intentionally small: structured metadata, a focused guest log,
+        and the local runner used to reproduce the path.
+      </p>
+      <figure class="evidence-figure">
+        <img src="hero.png" alt="Focused runtime validation after local rebuild">
+        <figcaption>Figure 1. Focused guest validation after rebuild under the local VirtualBox and QEMU path.</figcaption>
+      </figure>
+      <dl class="run-list">
+        <div><dt>Run ID</dt><dd><code>20260617T024946Z-from-scratch</code></dd></div>
+        <div><dt>Runner size</dt><dd><code>6 vCPU / 8192 MB</code></dd></div>
+        <div><dt>Build path</dt><dd>Linux-side MINIX build, image rebuild, guest boot, and focused test execution.</dd></div>
+        <div><dt>Outcome</dt><dd><code>status: passed</code></dd></div>
+      </dl>
+      <pre class="result-block">minix# cd /usr/tests/minix-posix && ./run -t 95
 
 Test 95 ok
 TEST95_OK</pre>
-        </div>
-        <div>
-          <div class="evidence-links">
-            <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/README.md">Validation README</a>
-            <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.result.json">Structured result JSON</a>
-            <a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.test95.log">Focused test log</a>
-            <a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore/infra/local-virtualbox-runner">Local validation runner</a>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section class="section section-links">
-      <div class="section-heading">
-        <p class="section-label">Direct access</p>
-        <h2>Review entry points</h2>
-      </div>
-      <div class="two-column">
-        <p>
-          The cleanest starting point for code review is the feature pull request against
-          <code>minix-source-base</code>.
-        </p>
-        <p>
-          The cleanest starting point for runtime proof is the committed local-validation README
-          and the guest log showing <code>Test 95 ok</code>.
-        </p>
-      </div>
-      <div class="link-grid">
-        <a href="https://github.com/cervantesh/minix-semaphore/pull/1">Feature PR</a>
-        <a href="https://github.com/cervantesh/minix-semaphore/tree/minix-semaphore">Implementation branch</a>
-        <a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore">Validation branch</a>
-        <a href="https://github.com/cervantesh/minix-semaphore/tree/minix-source-base">Frozen base branch</a>
-      </div>
+    <section class="paper-section">
+      <h2>Primary Artifacts</h2>
+      <ol class="reference-list">
+        <li><a href="https://github.com/cervantesh/minix-semaphore/pull/1">Feature pull request against <code>minix-source-base</code></a></li>
+        <li><a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/README.md">Validation README</a></li>
+        <li><a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.result.json">Structured result JSON</a></li>
+        <li><a href="https://github.com/cervantesh/minix-semaphore/blob/portfolio-minix-semaphore/docs/local-validation/minix-pm-semaphores/20260617T024946Z-from-scratch.test95.log">Focused guest log</a></li>
+        <li><a href="https://github.com/cervantesh/minix-semaphore/tree/portfolio-minix-semaphore/infra/local-virtualbox-runner">Local validation runner</a></li>
+      </ol>
     </section>
   </main>
 </body>
